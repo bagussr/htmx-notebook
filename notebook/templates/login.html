@@ -1,0 +1,90 @@
+{% extends 'layout.html' %}
+
+<!--  -->
+{% block title %}
+<title>Login</title>
+{% endblock %}
+<!--  -->
+{% block content %}
+<div class="w-screen h-screen bg-slate-50 flex justify-center items-center">
+  <div
+    class="bg-white rounded shadow-lg h-2/3 w-2/3 m-auto p-4 flex items-center justify-between border border-gray-800 relative"
+  >
+    <span
+      class="w-1/2 text-md font-semibold capitalize flex flex-col justify-center gap-y-8 h-full p-8 text-gray-500 flex-1"
+    >
+      <h1>Selamat Datang,</h1>
+      <h1>
+        Dokumentasikan ide-ide brilian Anda dengan mudah dan Jadikan hidup Anda
+        lebih teratur dan produktif dengan aplikasi notebook.
+      </h1>
+      <span class="mt-4">
+        <h1>best regargs,</h1>
+        <h1>Xnerro</h1>
+      </span>
+    </span>
+    <div
+      class="self-start flex-1 p-8 w-full h-full flex gap-x-4 items-center relative justify-center"
+    >
+      <form action="/login" method="post" class="w-full h-fit">
+        <div class="mb-6">
+          <label
+            for="email"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Alamat email</label
+          >
+          <input
+            type="email"
+            id="email"
+            class="input"
+            placeholder="john.doe@company.com"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            for="password"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            class="input"
+            placeholder="•••••••••"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <button type="submit" class="btn border border-black w-full">
+            Login
+          </button>
+        </div>
+        <div class="flex text-gray-400 w-full justify-center gap-x-2">
+          <p>Belum punya akun?</p>
+          <a href="/register" hx-boost="true" class="text-blue-400 font-bold"
+            >Daftar</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+  {% endblock %} {% block script %}
+  <script type="module">
+    var user = undefined;
+    var dropdownButton = window.htmx.findAll('#dropdown li button');
+    var btn = window.htmx.find('#dropdownDefaultButton');
+    var next = window.htmx.find('#next');
+    function setUser() {
+      btn.textContent = this.getAttribute('data-button');
+      next.innerHTML = `
+    <button type='submit' class='absolute btn bottom-5 right-5 flex gap-x-4'>Lanjut <i>→</i></button>
+    `;
+    }
+    dropdownButton.forEach(item => {
+      item.addEventListener('click', setUser);
+    });
+  </script>
+
+  {% endblock %}
+</div>

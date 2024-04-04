@@ -15,10 +15,25 @@ module.exports = {
     plugin(function ({ addComponents, theme }) {
       addComponents({
         '.btn': {
-          padding: '.5rem 1rem',
+          padding: '.7rem 1rem',
           borderRadius: '.25rem',
           fontWeight: '600',
           fontSize: theme('fontSize.sm'),
+          '&:hover': {
+            backgroundColor: theme('colors.gray.100'),
+          },
+        },
+        '.input': {
+          padding: theme('spacing.2.5 spacing.4'),
+          backgroundColor: 'white',
+          border: '1px solid black',
+          borderRadius: '.25rem',
+          width: '100%',
+          '&:focus': {
+            outline: '1px solid black',
+            border: '1px solid black',
+            boxShadow: 'none',
+          },
         },
       });
     }),
