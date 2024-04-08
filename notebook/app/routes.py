@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Request, status
-from fastapi.responses import RedirectResponse
 
 from app import templates
 
@@ -14,3 +13,8 @@ def login(reqeust: Request):
 @router.get("/register")
 def register(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
+
+
+@router.get("/home")
+def home(request: Request):
+    return templates.TemplateResponse("dashboard.html", {"request": request})

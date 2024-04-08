@@ -25,7 +25,12 @@
     <div
       class="self-start flex-1 p-8 w-full h-full flex gap-x-4 items-center relative justify-center"
     >
-      <form action="/login" method="post" class="w-full h-fit">
+      <form
+        action="/api/auth/register"
+        method="post"
+        class="w-full h-fit"
+        id="form-register"
+      >
         <div class="mb-6">
           <label
             for="name"
@@ -80,14 +85,31 @@
           <input
             type="password"
             id="confirm_password"
+            name="confirm_password"
+            hx-on:change="if(this.value !== htmx.find('#password').value){
+              htmx.find('#submit').setAttribute('disabled', true)
+              htmx.toggleClass(htmx.find('#password-error'), 'hidden')
+            } else{
+              htmx.toggleClass(htmx.find('#password-error'), 'hidden')
+            }"
             class="input"
             placeholder="•••••••••"
             required
           />
         </div>
         <div class="mb-4">
-          <button type="submit" class="btn border border-black w-full">
-            Login
+          <div
+            id="password-error"
+            class="bg-red-300 text-red-600 w-full rounded hidden p-1 text-center mb-2"
+          >
+            <p>Password tidak sama</p>
+          </div>
+          <button
+            type="submit"
+            class="btn border border-black w-full"
+            id="submit"
+          >
+            Daftar
           </button>
         </div>
         <div class="flex text-gray-400 w-full justify-center gap-x-2">

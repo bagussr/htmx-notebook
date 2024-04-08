@@ -26,7 +26,7 @@
     <div
       class="self-start flex-1 p-8 w-full h-full flex gap-x-4 items-center relative justify-center"
     >
-      <form action="/login" method="post" class="w-full h-fit">
+      <form action="/api/auth/login" method="post" class="w-full h-fit">
         <div class="mb-6">
           <label
             for="email"
@@ -36,6 +36,7 @@
           <input
             type="email"
             id="email"
+            name="email"
             class="input"
             placeholder="john.doe@company.com"
             required
@@ -50,6 +51,7 @@
           <input
             type="password"
             id="password"
+            name="password"
             class="input"
             placeholder="•••••••••"
             required
