@@ -1,8 +1,12 @@
+from typing_extensions import Annotated
+from pydantic import AfterValidator
 from pydantic_core import core_schema
 from datetime import datetime
 from typing import TypeVar, Any
 from bson import ObjectId
 from typing import Any
+import json
+
 from app import db
 
 T = TypeVar
@@ -20,7 +24,7 @@ def validate_object_id(v: Any) -> ObjectId:
     raise ValueError("Invalid ObjectId")
 
 
-class PyObjectId(ObjectId):
+class _PyObjectId(ObjectId):
     @classmethod
     def __get_validators__(cls):
         yield cls.validate
@@ -46,6 +50,13 @@ class PyObjectId(ObjectId):
             json_schema=core_schema.str_schema(),
             python_schema=core_schema.is_instance_schema(ObjectId),
         )
+
+
+def parse_json(val):
+    return json.dumps(val, default=str)
+
+
+PyObjectId = Annotated[_PyObjectId, AfterValidator(parse_json)]
 
 
 class FilterClass:

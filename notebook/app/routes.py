@@ -1,12 +1,20 @@
-from fastapi import APIRouter, Request, status
+import pprint
+from typing import Annotated
+from fastapi import APIRouter, Cookie, Depends, Request, status
+from fastapi.responses import RedirectResponse
+
 
 from app import templates
+from utils.auth import Authenticated, CookieAuth
+
 
 router = APIRouter(prefix="", tags=["app"])
 
 
 @router.get("/login")
-def login(reqeust: Request):
+def login(reqeust: Request, auth: Authenticated):
+    if auth:
+        return RedirectResponse(url="/home", status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("login.html", {"request": reqeust})
 
 
@@ -16,5 +24,5 @@ def register(request: Request):
 
 
 @router.get("/home")
-def home(request: Request):
+def home(request: Request, auth: CookieAuth):
     return templates.TemplateResponse("dashboard.html", {"request": request})

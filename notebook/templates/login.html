@@ -26,7 +26,15 @@
     <div
       class="self-start flex-1 p-8 w-full h-full flex gap-x-4 items-center relative justify-center"
     >
-      <form action="/api/auth/login" method="post" class="w-full h-fit">
+      <form
+        hx-ext="response-targets"
+        hx-post="/api/auth/login"
+        class="w-full h-fit"
+        hx-push-url="true"
+        hx-target="#root"
+        hx-target-error="#any-errors"
+        hx-on:htmx:after-request="htmx.find('#submit').textContent = 'Login'"
+      >
         <div class="mb-6">
           <label
             for="email"
@@ -58,7 +66,13 @@
           />
         </div>
         <div class="mb-4">
-          <button type="submit" class="btn border border-black w-full">
+          <div id="any-errors"></div>
+          <button
+            id="submit"
+            type="submit"
+            class="btn border border-black w-full"
+            hx-on:click="this.textContent  = 'Loading...'"
+          >
             Login
           </button>
         </div>
@@ -71,22 +85,5 @@
       </form>
     </div>
   </div>
-  {% endblock %} {% block script %}
-  <script type="module">
-    var user = undefined;
-    var dropdownButton = window.htmx.findAll('#dropdown li button');
-    var btn = window.htmx.find('#dropdownDefaultButton');
-    var next = window.htmx.find('#next');
-    function setUser() {
-      btn.textContent = this.getAttribute('data-button');
-      next.innerHTML = `
-    <button type='submit' class='absolute btn bottom-5 right-5 flex gap-x-4'>Lanjut <i>→</i></button>
-    `;
-    }
-    dropdownButton.forEach(item => {
-      item.addEventListener('click', setUser);
-    });
-  </script>
-
-  {% endblock %}
 </div>
+{% endblock %}

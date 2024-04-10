@@ -4,4 +4,15 @@
 {% endblock %} {% block content %}
 <h1>dashboard</h1>
 
+<div>
+  <form
+    hx-post="/api/auth/logout"
+    method="post"
+    hx-push-url="/login"
+    hx-target="#root"
+  >
+    <button class="btn" type="submit">Logout</button>
+  </form>
+</div>
+
 {% endblock %}

@@ -4,6 +4,7 @@ from fastapi.responses import RedirectResponse
 
 from app.routes import router
 from api import router as api_router
+from utils.auth import Authenticated
 
 app = FastAPI()
 
@@ -11,7 +12,9 @@ app.mount("/static", StaticFiles(directory="./notebook/static"), name="static")
 
 
 @app.get("/")
-def index():
+def index(auth: Authenticated):
+    if auth:
+        return RedirectResponse("/home", status_code=status.HTTP_303_SEE_OTHER)
     return RedirectResponse("/login", status.HTTP_303_SEE_OTHER)
 
 

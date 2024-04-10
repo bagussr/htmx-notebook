@@ -13,7 +13,7 @@ class Users(BaseModel):
     phone: OptionalStr = Field(default=None)
     address: OptionalStr = Field(default=None)
     img_profile: OptionalStr = Field(default=None)
-    password: ClassVar[str] = Field(...)
+    password: str = Field(...)
 
     model_config = ConfigDict(
         arbitrary_types_allowed=True, json_encoders={ObjectId: str}
