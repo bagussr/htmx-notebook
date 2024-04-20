@@ -1,5 +1,3 @@
-import pprint
-from typing import Annotated
 from fastapi import APIRouter, Cookie, Depends, Request, status
 from fastapi.responses import RedirectResponse
 
@@ -14,7 +12,7 @@ router = APIRouter(prefix="", tags=["app"])
 @router.get("/login")
 def login(reqeust: Request, auth: Authenticated):
     if auth:
-        return RedirectResponse(url="/home", status_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse(url="/notes", status_code=status.HTTP_303_SEE_OTHER)
     return templates.TemplateResponse("login.html", {"request": reqeust})
 
 
@@ -23,6 +21,15 @@ def register(request: Request):
     return templates.TemplateResponse("register.html", {"request": request})
 
 
-@router.get("/home")
+@router.get("/notes")
 def home(request: Request, auth: CookieAuth):
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+    return templates.TemplateResponse(
+        "dashboard.html", {"request": request, "subtiltle": "Notes"}
+    )
+
+
+@router.get("/favorite")
+def home(request: Request, auth: CookieAuth):
+    return templates.TemplateResponse(
+        "dashboard.html", {"request": request, "subtiltle": "Favorite Notes"}
+    )

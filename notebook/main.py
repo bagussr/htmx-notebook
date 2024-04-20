@@ -14,7 +14,7 @@ app.mount("/static", StaticFiles(directory="./notebook/static"), name="static")
 @app.get("/")
 def index(auth: Authenticated):
     if auth:
-        return RedirectResponse("/home", status_code=status.HTTP_303_SEE_OTHER)
+        return RedirectResponse("/notes", status_code=status.HTTP_303_SEE_OTHER)
     return RedirectResponse("/login", status.HTTP_303_SEE_OTHER)
 
 

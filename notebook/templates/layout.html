@@ -13,7 +13,9 @@
     {% block title %} {% endblock %}
   </head>
   <body>
-    <div id="root">{% block content %} {% endblock %}</div>
+    <div id="root" class="h-screen flex flex-col">
+      {% block content %} {% endblock %}
+    </div>
     {% block script %} {% endblock %}
   </body>
 </html>

@@ -7,7 +7,6 @@ import os
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.responses import (
     JSONResponse,
-    PlainTextResponse,
     RedirectResponse,
     HTMLResponse,
 )
@@ -41,9 +40,9 @@ async def post_login(
     if user is not None:
         if verify_password(data.password, user.password):
             res = RedirectResponse(
-                url="/home",
+                url="/notes",
                 status_code=status.HTTP_303_SEE_OTHER,
-                headers={"HX-Push-Url": q or "/home"},
+                headers={"HX-Push-Url": q or "/notes"},
             )
             token = jwt.encode(
                 {

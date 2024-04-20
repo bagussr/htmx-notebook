@@ -4,7 +4,6 @@ from pydantic_core import core_schema
 from datetime import datetime
 from typing import TypeVar, Any
 from bson import ObjectId
-from typing import Any
 import json
 
 from app import db

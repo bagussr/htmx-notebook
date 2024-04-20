@@ -1,18 +1,31 @@
-{% extends 'layout.html' %} {% block title %}
+{% extends 'layout.html' %}
+<!--  -->
+{% from 'components/card_note.macro' import cardNote %}
+<!--  -->
+{% block title %}
 <title>Dashboard</title>
-
-{% endblock %} {% block content %}
-<h1>dashboard</h1>
-
-<div>
-  <form
-    hx-post="/api/auth/logout"
-    method="post"
-    hx-push-url="/login"
-    hx-target="#root"
-  >
-    <button class="btn" type="submit">Logout</button>
-  </form>
-</div>
+{% endblock %}
+<!--  -->
+{% block content %} {% include 'components/navbar.html' %}
+<main class="flex w-full h-full">
+  {% include 'components/sidebar.html' %}
+  <div class="p-4 flex flex-col w-full">
+    <h1 class="font-bold text-lg" id="subtitle">{{subtiltle}}</h1>
+    <div
+      class="grid grid-cols-3 p-4 gap-y-6 gap-x-4 w-full"
+      id="notes-continaer"
+    >
+      {% for item in [1,2,3] %} {{ cardNote({'title': "Lorem masuk", 'content':
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum iure,
+      impedit provident est non ex, quasi voluptates iusto"}) }} {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %} {% block script %}
+<script
+  hx-preserve="true"
+  type="module"
+  src="http://localhost:5173/notebook/static/js/utils.js"
+></script>
 
 {% endblock %}
